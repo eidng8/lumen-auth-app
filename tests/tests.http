@@ -1,4 +1,4 @@
-POST {{base}}/api/register
+POST {{base}}/register
 Content-Type: application/json
 
 {

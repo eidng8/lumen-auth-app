@@ -15,7 +15,7 @@ class AuthControllerTest extends TestCase
         $post = $data = $user->toArray();
         $post['password'] = $user->password;
         $post['password_confirmation'] = $user->password;
-        $this->post('/api/register', $post)
+        $this->post('/register', $post)
             ->seeInDatabase(
                 'users',
                 Arr::except($data, 'password_confirmation')

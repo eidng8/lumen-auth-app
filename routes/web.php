@@ -15,18 +15,4 @@
 
 use Laravel\Lumen\Routing\Router;
 
-$router->get(
-    '/',
-    function () use ($router) {
-        return $router->app->version();
-    }
-);
-
-// API route group
-$router->group(
-    ['prefix' => 'api'],
-    function () use ($router) {
-        // Matches "/api/register
-        $router->post('register', 'AuthController@register');
-    }
-);
+$router->post('register', 'AuthController@register');

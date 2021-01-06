@@ -1,4 +1,9 @@
 <?php
+/*
+ * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
+ *
+ * author eidng8
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

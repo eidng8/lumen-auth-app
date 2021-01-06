@@ -14,7 +14,7 @@ use Tests\TestCase;
 class AuthControllerTest extends TestCase
 {
 
-    public function testRegisterOk(): void
+    public function test_register_ok(): void
     {
         $user = User::factory()->make();
         $post = $data = $user->toArray();
@@ -28,7 +28,7 @@ class AuthControllerTest extends TestCase
             ->assertResponseStatus(201);
     }
 
-    public function testLoginOk(): void
+    public function test_login_ok(): void
     {
         $res = $this->post(
             '/login',

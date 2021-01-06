@@ -12,9 +12,35 @@
 >
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <directory phpVersion="8.0" phpVersionOperator="&gt;="
+                       suffix="Test.php">
+                ./tests
+            </directory>
         </testsuite>
     </testsuites>
+    <coverage cacheDirectory="./.phpunit.cache"
+              includeUncoveredFiles="true"
+              processUncoveredFiles="true"
+              pathCoverage="true">
+        <include>
+            <directory phpVersion="8.0" phpVersionOperator="&gt;="
+                       suffix=".php">
+                ./app
+            </directory>
+            <directory phpVersion="8.0" phpVersionOperator="&gt;="
+                       suffix=".php">
+                ./bootstrap
+            </directory>
+            <directory phpVersion="8.0" phpVersionOperator="&gt;="
+                       suffix=".php">
+                ./config
+            </directory>
+            <directory phpVersion="8.0" phpVersionOperator="&gt;="
+                       suffix=".php">
+                ./routes
+            </directory>
+        </include>
+    </coverage>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>

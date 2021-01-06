@@ -307,4 +307,14 @@ return [
 
     ],
 
+    /*
+     |-------------------------------------------------------------
+     | Custom configurations
+     |-------------------------------------------------------------
+     */
+
+    /*
+     | Only accepts the following issuers (against the `iss` claim).
+     */
+    'accepted_issuers' => explode(',', env('JWT_ACCEPTED_ISSUERS', '')),
 ];

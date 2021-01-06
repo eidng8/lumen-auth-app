@@ -10,6 +10,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWTGuard;
 
 class Authenticate
 {
@@ -18,7 +19,7 @@ class Authenticate
      *
      * @var Auth
      */
-    protected $auth;
+    protected Auth $auth;
 
     /**
      * Create a new middleware instance.
@@ -41,12 +42,41 @@ class Authenticate
      *
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+    public function handle(
+        Request $request,
+        Closure $next,
+        $guard = null
+    ): mixed {
+        /* @var JWTGuard $jwtGuard */
+        $jwtGuard = $this->auth->guard($guard);
+        if (!$jwtGuard->guest()
+            && $this->checkIssuer($jwtGuard)
+            && $this->checkTokenType($request)) {
+            return $next($request);
         }
 
-        return $next($request);
+        return response('Unauthorized.', 401);
+    }
+
+    private function checkIssuer(JWTGuard $guard): bool
+    {
+        $accepted = config('jwt.accepted_issuers');
+        // allow all issuers if the configuration is not set
+        if (count($accepted) == 0) {
+            return true;
+        }
+        return in_array($guard->getPayload()->get('iss'), $accepted);
+    }
+
+    private function checkTokenType(Request $request): bool
+    {
+        $header = $request->headers->get('Authorization');
+        if ($header) {
+            $parts = explode(' ', $header);
+            if (count($parts) == 2) {
+                return 'bearer' == $parts[0];
+            }
+        }
+        return false;
     }
 }

@@ -21,34 +21,40 @@ class AuthController extends Controller
      */
     public function register(Request $request): Response
     {
-        //validate incoming request
+        // validate incoming request
         $this->validate(
             $request,
             [
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users',
-                'password' => 'required|confirmed',
+                'password' => 'required|string|confirmed',
             ]
         );
 
         try {
-            $user = new User();
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $plainPassword = $request->input('password');
-            $user->password = app('hash')->make($plainPassword);
-
+            $user = new User(
+                [
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                ]
+            );
+            $user->password = app('hash')->make($request->input('password'));
             $user->save();
 
-            //return successful response
+            // return successful response
             return response()->json(
-                ['user' => $user, 'message' => 'CREATED'],
-                201
+                [
+                    'user' => $user,
+                    'message' => __('User has been successfully created.'),
+                ]
             );
         } catch (Exception $e) {
-            //return error message
+            // return error message
             return response()->json(
-                ['message' => 'User Registration Failed!'],
+                [
+                    'message' => __('User Registration Failed!'),
+                    'error' => $e,
+                ],
                 409
             );
         }

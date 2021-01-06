@@ -1,4 +1,9 @@
 <?php
+/*
+ * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
+ *
+ * author eidng8
+ */
 
 namespace Tests\Units\Http\Controllers;
 
@@ -19,6 +24,20 @@ class AuthControllerTest extends TestCase
             ->seeInDatabase(
                 'users',
                 Arr::except($data, 'password_confirmation')
-            );
+            )
+            ->assertResponseStatus(201);
+    }
+
+    public function testLoginOk(): void
+    {
+        $res = $this->post(
+            '/login',
+            ['email' => 'someone@example.com', 'password' => '111111']
+        )->seeJsonContains(['token_type' => 'bearer', 'expires_in' => 3600]);
+        $res->assertResponseOk();
+        $this->assertStringContainsString(
+            '"token":',
+            $res->response->getContent()
+        );
     }
 }

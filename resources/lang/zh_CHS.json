@@ -1,4 +1,5 @@
 {
     "User has been successfully created.": "创建用户成功。",
-    "User Registration Failed!": "无法创建用户！"
+    "User Registration Failed.": "无法创建用户。",
+    "The given credentials cannot be found.": "登录信息不正确。"
 }

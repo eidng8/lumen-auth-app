@@ -1,4 +1,9 @@
 <?php
+/*
+ * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
+ *
+ * author eidng8
+ */
 
 /** @var Router $router */
 
@@ -16,3 +21,5 @@
 use Laravel\Lumen\Routing\Router;
 
 $router->post('register', 'AuthController@register');
+$router->post('login', 'AuthController@login');
+$router->post('refresh', 'TokenController@refresh');

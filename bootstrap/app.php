@@ -1,4 +1,9 @@
 <?php
+/*
+ * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
+ *
+ * author eidng8
+ */
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -23,9 +28,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// jwt-auth requires these two features.
-$app->withFacades();
-$app->withEloquent();
+// $app->withFacades();
+
+$app->withEloquent();   // jwt-auth requires this
 
 /*
 |--------------------------------------------------------------------------
@@ -73,12 +78,15 @@ $app->configure('app');
 */
 
 // $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
+//     App\Http\Middleware\ForceJsonMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware(
+    [
+        'auth' => App\Http\Middleware\Authenticate::class,
+        'json' => App\Http\Middleware\ForceJsonMiddleware::class,
+    ]
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,8 +100,9 @@ $app->configure('app');
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +118,7 @@ $app->configure('app');
 $app->router->group(
     [
         'namespace' => 'App\Http\Controllers',
+        'middleware' => 'json',
     ],
     function ($router) {
         require __DIR__ . '/../routes/web.php';

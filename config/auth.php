@@ -63,7 +63,7 @@ return [
              * `Tymon\JWTAuth\Providers\AbstractServiceProvider::extendAuthGuard()`.
              * Which is inherited by `LaravelServiceProvider` and
              * `LumenServiceProvider`. And then added to either Laravel's
-             * `config/app.php` or Lumen's `app.php` respectively.
+             * `config/app.php` or Lumen's `bootstrap/app.php` respectively.
              */
             'driver' => 'jwt',
 

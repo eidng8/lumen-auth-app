@@ -26,7 +26,7 @@ class AuthController extends Controller
     /**
      * Store a new user.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
      * @return JsonResponse
      * @throws ValidationException
@@ -63,7 +63,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'message' => __('User Registration Failed!'),
-                    'error' => $e,
+                    'error' => $e->getMessage(),
                 ],
                 409
             );
@@ -73,7 +73,7 @@ class AuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
      * @return JsonResponse
      * @throws ValidationException

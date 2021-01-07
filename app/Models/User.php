@@ -53,7 +53,7 @@ class User extends Model implements
      *
      * @return mixed
      */
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
@@ -66,6 +66,6 @@ class User extends Model implements
      */
     public function getJWTCustomClaims(): array
     {
-        return [];
+        return ['iss' => config('jwt.issuer')];
     }
 }

@@ -315,6 +315,11 @@ return [
      */
 
     /*
+     | Value to the `iss` claim of tokens issued by this service.
+     */
+    'issuer' => env('JWT_ISSUER', 'eidng8'),
+
+    /*
      | Only accepts the following issuers (against the `iss` claim).
      */
     'accepted_issuers' => explode(',', env('JWT_ACCEPTED_ISSUERS', '')),

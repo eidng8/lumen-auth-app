@@ -20,3 +20,17 @@ Content-Type: application/json
 }
 
 ###
+
+
+POST {{base}}/refresh
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlaWRuZzgiLCJpYXQiOjE2MTAwMjE1MzEsImV4cCI6MTYxMDAyNTE0NSwibmJmIjoxNjEwMDIxNTQ1LCJqdGkiOiIycGlMWEZJcGxWV1ZqajJ1Iiwic3ViIjoxfQ.Tj5vRnmojpHbOmvaneYhEVL9xAfO0mUxjwout4t5GO4
+
+
+###
+
+
+POST {{base}}/logout
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlaWRuZzgiLCJpYXQiOjE2MTAwMjE1MzEsImV4cCI6MTYxMDAyNTE0NSwibmJmIjoxNjEwMDIxNTQ1LCJqdGkiOiIycGlMWEZJcGxWV1ZqajJ1Iiwic3ViIjoxfQ.Tj5vRnmojpHbOmvaneYhEVL9xAfO0mUxjwout4t5GO4
+
+
+###

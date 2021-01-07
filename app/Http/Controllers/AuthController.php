@@ -84,6 +84,9 @@ class AuthController extends Controller
         );
 
         $credentials = $request->only(['email', 'password']);
+
+        /* @var string|bool $token */
+        // JWTGuard::attempt() by default, will return the token on success.
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(
                 ['message' => __('The given credentials cannot be found.')],
@@ -91,10 +94,6 @@ class AuthController extends Controller
             );
         }
 
-        /*
-         * The `iss` claim is the URL of this end point.
-         * e.g. https://some.domain.com/login
-         */
         return $this->respondWithToken($token);
     }
 }

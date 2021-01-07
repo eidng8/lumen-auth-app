@@ -10,15 +10,42 @@ namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Generating responses with JWT tokens.
+ */
 trait TokenResponse
 {
 
     /**
-     * @param $token
+     * Generate a JSON response with the given JWT token.
+     * There are two extra fields placed side by side with the token.
+     *
+     * + `token_type` is a constant with value `bearer`;
+     * + `expires_in` is the TTL in seconds.
+     *
+     * example:
+     * ```json
+     * {
+     *   "token":      "...",
+     *   "token_type:  "bearer",
+     *   "expires_in": 3600
+     * }
+     * ```
+     *
+     * More on the JWT token:
+     * + The `iss` claim is the URL of this end point. Currently there are only
+     *   two end points that will generate tokens: `login` and `refresh`. If
+     *   given the domain `some.domain.com` and using HTTPS protocol,
+     *   only two possible `iss` would be:
+     *     - https://some.domain.com/login
+     *     - https://some.domain.com/refresh
+     * + The `sub` claim holds user ID (most likely the database primary key).
+     *
+     * @param string $token
      *
      * @return JsonResponse
      */
-    protected function respondWithToken($token): JsonResponse
+    protected function respondWithToken(string $token): JsonResponse
     {
         /* @noinspection PhpParamsInspection PhpUndefinedMethodInspection */
         $ttl = auth()->factory()->getTTL() * 60;  // converts minute to seconds

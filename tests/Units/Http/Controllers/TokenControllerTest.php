@@ -28,10 +28,14 @@ class TokenControllerTest extends AuthTestCase
             '"token":',
             $res->response->getContent()
         );
-        $this->assertNotEquals(
-            $token,
-            $res->response->getOriginalContent()['token']
-        );
+        $newToken = $res->response->getOriginalContent()['token'];
+        $this->assertNotEquals($token, $newToken);
+        // JWTGuard is a singleton, so it won't pick up authorization headers
+        // from subsequent requests. We have to refresh the application to clear
+        // all provider resolutions.
+        $this->refreshApplication();
+        $this->sendRequest($newToken, '/refresh')
+            ->assertResponseOk();
     }
 
     public function test_logout_ok(): void

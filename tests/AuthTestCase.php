@@ -57,7 +57,7 @@ abstract class AuthTestCase extends TestCase
     ): static {
         $headers = array_merge(
             $headers,
-            ['Authorization' => "bearer $token}"]
+            ['Authorization' => "bearer $token"]
         );
         return $this->json($method, $endpoint, $data, $headers);
     }

@@ -91,7 +91,7 @@ class Authenticate
      */
     private function checkTokenType(Request $request): bool
     {
-        $header = $request->headers->get('Authorization');
+        $header = $request->headers->get('authorization');
         if ($header) {
             $parts = explode(' ', $header);
             if (count($parts) == 2) {

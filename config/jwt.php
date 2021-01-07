@@ -177,6 +177,7 @@ return [
     */
 
     'persistent_claims' => [
+        'iss',
         // 'foo',
         // 'bar',
     ],

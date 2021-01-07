@@ -29,12 +29,15 @@ class AuthControllerTest extends TestCase
         $post = $data = $user->toArray();
         $post['password'] = $user->password;
         $post['password_confirmation'] = $user->password;
-        $this->post('/register', $post)
-             ->seeInDatabase(
-                 'users',
-                 Arr::except($data, 'password_confirmation')
-             )
-             ->assertResponseStatus(201);
+        $res = $this->post('/register', $post)
+            ->seeInDatabase(
+                'users',
+                Arr::except($data, 'password_confirmation')
+            );
+        $fresh = User::whereEmail($user->email)->first()->toArray();
+        ksort($fresh);
+        $res->seeJsonContains(['user' => $fresh,])
+            ->assertResponseStatus(201);
     }
 
     public function test_register_duplicate_email_returns_422(): void
@@ -45,7 +48,7 @@ class AuthControllerTest extends TestCase
         $post['password_confirmation'] = $user->password;
         $this->post('/register', $post);
         $this->post('/register', $post)
-             ->assertResponseStatus(422);
+            ->assertResponseStatus(422);
     }
 
     public function test_register_invalid_email_returns_422(): void
@@ -56,7 +59,7 @@ class AuthControllerTest extends TestCase
         $post['password'] = $user->password;
         $post['password_confirmation'] = $user->password;
         $this->post('/register', $post)
-             ->assertResponseStatus(422);
+            ->assertResponseStatus(422);
     }
 
     public function test_register_unconfirmed_password_returns_422(): void
@@ -65,7 +68,7 @@ class AuthControllerTest extends TestCase
         $post = $data = $user->toArray();
         $post['password'] = $user->password;
         $this->post('/register', $post)
-             ->assertResponseStatus(422);
+            ->assertResponseStatus(422);
     }
 
     public function test_register_relays_low_level_error(): void
@@ -77,8 +80,8 @@ class AuthControllerTest extends TestCase
         $mockHash = Mockery::mock(new stdClass());
         $this->app->instance('hash', $mockHash);
         $mockHash->shouldReceive('make')
-                 ->once()
-                 ->andThrow(new Exception('just a test'));
+            ->once()
+            ->andThrow(new Exception('just a test'));
         $res = $this->post('/register', $post);
         $res->assertResponseStatus(409);
         $this->assertStringContainsString(

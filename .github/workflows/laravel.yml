@@ -40,8 +40,9 @@ jobs:
 
     - name: Generate key
       run: |
-        chmod +x scripts/genkey.sh
-        scripts/genkey.sh
+        APP_KEY=$(php -r 'echo md5(uniqid());')
+        echo APP_KEY=$APP_KEY
+        echo APP_KEY=$APP_KEY >> .env
         php artisan jwt:secret
 
     - name: Create Database

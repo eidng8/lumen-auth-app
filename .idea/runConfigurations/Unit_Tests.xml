@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Unit Tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine parameters="-d memory_limit=2G" />
+    <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" scope="XML" />
+    <method v="2" />
+  </configuration>
+</component>

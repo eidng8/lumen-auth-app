@@ -17,10 +17,10 @@ jobs:
         php-version: '8.0'
         coverage: xdebug
     - uses: actions/checkout@v2
-      
+
     - name: Setup problem matchers for PHPUnit
       run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-      
+
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
@@ -37,20 +37,15 @@ jobs:
 
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      
+
     - name: Generate key
-      run: |
-        php artisan key:generate
-        php artisan jwt:secret
-        
-#    - name: Directory Permissions
-#      run: chmod -R 777 storage bootstrap/cache
-      
+      run: php artisan jwt:secret
+
     - name: Create Database
       run: |
         mkdir -p database
         touch database/database.sqlite
-        
+
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite

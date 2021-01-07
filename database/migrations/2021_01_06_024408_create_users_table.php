@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Creates user table.
+ */
 class CreateUsersTable extends Migration
 {
     /**
@@ -25,8 +28,7 @@ class CreateUsersTable extends Migration
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name');
-                $table->string('email')->unique()/*->notNullable()*/
-                ;
+                $table->string('email')->unique();
                 $table->string('password');
                 $table->timestamps();
             }

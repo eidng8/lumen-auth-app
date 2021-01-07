@@ -10,8 +10,10 @@ namespace App\Http\Controllers;
 
 use App\Traits\TokenResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
+/**
+ * JWT token related services
+ */
 class TokenController extends Controller
 {
     use TokenResponse;
@@ -21,7 +23,12 @@ class TokenController extends Controller
         $this->middleware('auth');
     }
 
-    public function refresh(Request $request): JsonResponse
+    /**
+     * Refreshes a JWT token of current request.
+     *
+     * @return JsonResponse
+     */
+    public function refresh(): JsonResponse
     {
         /* @noinspection PhpParamsInspection */
         return $this->respondWithToken(auth()->refresh(true, true));

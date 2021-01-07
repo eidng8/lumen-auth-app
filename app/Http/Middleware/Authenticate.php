@@ -12,6 +12,10 @@ use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTGuard;
 
+/**
+ * Authentication middleware. Please note that the token *must* be provided in
+ * the `authorization` HTTP header.
+ */
 class Authenticate
 {
     /**
@@ -58,6 +62,13 @@ class Authenticate
         return response('Unauthorized.', 401);
     }
 
+    /**
+     * Check whether the issuer of requested token were accepted.
+     *
+     * @param  JWTGuard  $guard
+     *
+     * @return bool
+     */
     private function checkIssuer(JWTGuard $guard): bool
     {
         $accepted = config('jwt.accepted_issuers');
@@ -68,6 +79,13 @@ class Authenticate
         return in_array($guard->getPayload()->get('iss'), $accepted);
     }
 
+    /**
+     * Check whether the token type were correct.
+     *
+     * @param  Request  $request
+     *
+     * @return bool
+     */
     private function checkTokenType(Request $request): bool
     {
         $header = $request->headers->get('Authorization');

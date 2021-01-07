@@ -10,6 +10,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
+/**
+ * Force the request to be JSON by setting the `accept` HTTP request header.
+ */
 class ForceJsonMiddleware
 {
     /**
@@ -20,7 +23,7 @@ class ForceJsonMiddleware
      *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $request->headers->set('Accept', 'application/json');
         return $next($request);

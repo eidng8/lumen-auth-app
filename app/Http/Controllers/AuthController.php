@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 
+/**
+ * Authentication controller
+ */
 class AuthController extends Controller
 {
     use TokenResponse;
@@ -44,7 +47,8 @@ class AuthController extends Controller
             $user->password = app('hash')->make($request->input('password'));
             $user->save();
 
-            // return successful response
+            // return successful response, HTTP 201 means "created".
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
             return response()->json(
                 [
                     'user' => $user,
@@ -53,7 +57,8 @@ class AuthController extends Controller
                 201
             );
         } catch (Exception $e) {
-            // return error message
+            // return error message, HTTP 409 means "conflict".
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
             return response()->json(
                 [
                     'message' => __('User Registration Failed!'),

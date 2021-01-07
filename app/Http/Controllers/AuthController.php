@@ -1,8 +1,10 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace App\Http\Controllers;
@@ -14,9 +16,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-
 /**
- * Authentication controller
+ * Authentication controller.
  */
 class AuthController extends Controller
 {

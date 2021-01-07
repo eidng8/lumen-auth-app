@@ -1,12 +1,13 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace App\Traits;
-
 
 use Illuminate\Http\JsonResponse;
 
@@ -15,7 +16,6 @@ use Illuminate\Http\JsonResponse;
  */
 trait TokenResponse
 {
-
     /**
      * Generate a JSON response with the given JWT token.
      * There are two extra fields placed side by side with the token.
@@ -49,6 +49,7 @@ trait TokenResponse
     {
         /* @noinspection PhpParamsInspection PhpUndefinedMethodInspection */
         $ttl = auth()->factory()->getTTL() * 60;  // converts minute to seconds
+
         return response()->json(
             [
                 'token' => $token,

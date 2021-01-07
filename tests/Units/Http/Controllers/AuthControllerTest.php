@@ -1,8 +1,10 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace Tests\Units\Http\Controllers;
@@ -12,11 +14,10 @@ use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 /**
- * Tests authentication services
+ * Tests authentication services.
  */
 class AuthControllerTest extends TestCase
 {
-
     public function test_register_ok(): void
     {
         $user = User::factory()->make();

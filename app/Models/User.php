@@ -1,8 +1,10 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace App\Models;
@@ -19,7 +21,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * User database model.
  */
 class User extends Model implements
-    AuthenticatableContract, AuthorizableContract, JWTSubject
+    AuthenticatableContract,
+    AuthorizableContract,
+    JWTSubject
 {
     use Authenticatable;
     use Authorizable;

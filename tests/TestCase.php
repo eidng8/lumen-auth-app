@@ -1,8 +1,10 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace Tests;
@@ -12,7 +14,7 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 /**
- * Unit test base class
+ * Unit test base class.
  */
 abstract class TestCase extends BaseTestCase
 {

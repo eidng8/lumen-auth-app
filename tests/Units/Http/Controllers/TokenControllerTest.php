@@ -10,6 +10,9 @@ namespace Tests\Units\Http\Controllers;
 use App\Http\Controllers\AuthController;
 use Tests\TestCase;
 
+/**
+ * Tests TokenController
+ */
 class TokenControllerTest extends TestCase
 {
     protected function setUp(): void

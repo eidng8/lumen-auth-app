@@ -11,6 +11,9 @@ use Laravel\Lumen\Application;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
+/**
+ * Unit test base class
+ */
 abstract class TestCase extends BaseTestCase
 {
     use DatabaseTransactions;

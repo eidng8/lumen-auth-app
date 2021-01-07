@@ -3,6 +3,7 @@
   ~ GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
   ~
   ~ author eidng8
+  ~
   -->
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -40,6 +41,9 @@
                 ./routes
             </directory>
         </include>
+        <exclude>
+            <directory>.app/Console</directory>
+        </exclude>
     </coverage>
     <php>
         <env name="APP_ENV" value="testing"/>

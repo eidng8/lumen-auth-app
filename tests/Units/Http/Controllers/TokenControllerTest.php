@@ -11,7 +11,7 @@ use App\Http\Controllers\AuthController;
 use Tests\TestCase;
 
 /**
- * Tests TokenController
+ * Tests token services.
  */
 class TokenControllerTest extends TestCase
 {

@@ -11,6 +11,9 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 
+/**
+ * Tests authentication services
+ */
 class AuthControllerTest extends TestCase
 {
 

@@ -21,7 +21,6 @@ use Tests\TestCase;
  */
 class AuthControllerTest extends TestCase
 {
-
     //region Registration tests
     public function test_register_ok(): void
     {
@@ -36,7 +35,7 @@ class AuthControllerTest extends TestCase
             );
         $fresh = User::whereEmail($user->email)->first()->toArray();
         ksort($fresh);
-        $res->seeJsonContains(['user' => $fresh,])
+        $res->seeJsonContains(['user' => $fresh])
             ->assertResponseStatus(201);
     }
 
@@ -113,5 +112,6 @@ class AuthControllerTest extends TestCase
             ['email' => 'not exists', 'password' => 'some pass']
         )->assertResponseStatus(401);
     }
+
     //endregion
 }

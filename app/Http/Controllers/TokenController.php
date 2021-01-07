@@ -45,6 +45,7 @@ class TokenController extends Controller
     public function logout(): JsonResponse
     {
         auth()->logout();
+
         return response()->json(['message' => __('See you soon.')]);
     }
 }

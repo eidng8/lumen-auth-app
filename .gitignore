@@ -4,6 +4,7 @@ Homestead.yaml
 .env
 .phpunit.result.cache
 .phpunit.cache
+http-client.env.json
 
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider

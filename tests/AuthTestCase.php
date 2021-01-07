@@ -14,7 +14,6 @@ namespace Tests;
  */
 abstract class AuthTestCase extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -59,6 +58,7 @@ abstract class AuthTestCase extends TestCase
             $headers,
             ['Authorization' => "bearer $token"]
         );
+
         return $this->json($method, $endpoint, $data, $headers);
     }
 }

@@ -17,7 +17,6 @@ use Tests\AuthTestCase;
  */
 class TokenControllerTest extends AuthTestCase
 {
-
     public function test_refresh_ok(): void
     {
         $token = $this->getToken();

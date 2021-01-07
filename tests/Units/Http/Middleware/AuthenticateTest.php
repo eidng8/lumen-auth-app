@@ -16,7 +16,6 @@ use Tests\AuthTestCase;
  */
 class AuthenticateTest extends AuthTestCase
 {
-
     public function test_authorization_header_ok(): void
     {
         // Post the token using authorization header.

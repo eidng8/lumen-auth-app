@@ -36,8 +36,7 @@ class CreateUsersTable extends Migration
             }
         );
 
-        DB::insert(
-            'insert into users (name, email, password) value (:name, :email, :password)',
+        DB::table('users')->insert(
             [
                 'name' => 'test-user',
                 'email' => 'someone@example.com',

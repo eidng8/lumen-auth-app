@@ -92,13 +92,14 @@ class AuthController extends Controller
 
         /* @var string|bool $token */
         // JWTGuard::attempt() by default, will return the token on success.
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(
-                ['message' => __('The given credentials cannot be found.')],
-                401
-            );
+        $token = auth()->attempt($credentials);
+        if ($token) {
+            return $this->respondWithToken($token);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json(
+            ['message' => __('The given credentials cannot be found.')],
+            401
+        );
     }
 }

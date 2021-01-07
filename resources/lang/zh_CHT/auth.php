@@ -20,7 +20,7 @@ return [
     |
     */
 
-    'failed' => '登录信息不存在。',
-    'throttle' => '登录失败次数过多，请等待:seconds秒后重试。',
+    'failed' => '登入信息不存在。',
+    'throttle' => '登入失敗次數過多，請等待:seconds秒後重試。',
 
 ];

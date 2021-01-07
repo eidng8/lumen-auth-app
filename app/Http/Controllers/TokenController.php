@@ -19,10 +19,12 @@ class TokenController extends Controller
 {
     use TokenResponse;
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    /**
+     * The middleware defined on the controller.
+     *
+     * @var array
+     */
+    protected $middleware = ['auth' => []];
 
     /**
      * Refreshes a JWT token of current request.
@@ -33,5 +35,16 @@ class TokenController extends Controller
     {
         /* @noinspection PhpParamsInspection */
         return $this->respondWithToken(auth()->refresh(true, true));
+    }
+
+    /**
+     * Logout the current user.
+     *
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+        return response()->json(['message' => __('See you soon.')]);
     }
 }

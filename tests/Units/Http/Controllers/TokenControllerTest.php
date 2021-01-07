@@ -9,34 +9,19 @@
 
 namespace Tests\Units\Http\Controllers;
 
-use App\Http\Controllers\AuthController;
-use Tests\TestCase;
+use Laravel\Lumen\Routing\Router;
+use Tests\AuthTestCase;
 
 /**
  * Tests token services.
  */
-class TokenControllerTest extends TestCase
+class TokenControllerTest extends AuthTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        config(['jwt.accepted_issuers' => ['http://localhost/login']]);
-    }
 
     public function test_refresh_ok(): void
     {
-        // Retrieve a token first
-        $token = $this->post(
-            '/login',
-            ['email' => 'someone@example.com', 'password' => '111111']
-        )->response->getOriginalContent()['token'];
-
-        // Post the token using authorization header.
-        $res = $this->post(
-            '/refresh',
-            [],
-            ['Authorization' => "bearer $token"]
-        );
+        $token = $this->getToken();
+        $res = $this->sendRequest($token, '/refresh');
         $res->assertResponseOk();
         $res->seeJsonContains(['token_type' => 'bearer', 'expires_in' => 3600]);
         $this->assertStringContainsString(
@@ -49,42 +34,23 @@ class TokenControllerTest extends TestCase
         );
     }
 
-    public function test_refresh_without_token_returns_401(): void
+    public function test_logout_ok(): void
     {
-        $this->post('/refresh')->assertResponseStatus(401);
-    }
+        $this->app->router->group(
+            ['middleware' => 'auth'],
+            function (Router $router) {
+                $router->post(
+                    '/test',
+                    function () {
+                        return response()->json('ok');
+                    }
+                );
+            }
+        );
 
-    public function test_refresh_with_wrong_issuer_returns_401(): void
-    {
-        // the `iss` claim is the end point URL
-        $this->app->router->post('login1', AuthController::class . '@login');
-        // Retrieve a token first
-        $token = $this->post(
-            '/login1',
-            ['email' => 'someone@example.com', 'password' => '111111']
-        )->response->getOriginalContent()['token'];
-
-        // Post the token using authorization header.
-        $this->post(
-            '/refresh',
-            [],
-            ['Authorization' => "wrong_type $token"]
-        )->assertResponseStatus(401);
-    }
-
-    public function test_refresh_with_wrong_token_type_returns_401(): void
-    {
-        // Retrieve a token first
-        $token = $this->post(
-            '/login',
-            ['email' => 'someone@example.com', 'password' => '111111']
-        )->response->getOriginalContent()['token'];
-
-        // Post the token using authorization header.
-        $this->post(
-            '/refresh',
-            [],
-            ['Authorization' => "wrong_type $token"]
-        )->assertResponseStatus(401);
+        $token = $this->getToken();
+        $this->sendRequest($token, '/test')->assertResponseOk();
+        $this->sendRequest($token, '/logout')->assertResponseOk();
+        $this->sendRequest($token, '/test')->assertResponseStatus(401);
     }
 }

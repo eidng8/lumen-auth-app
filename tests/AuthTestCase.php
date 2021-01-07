@@ -36,4 +36,29 @@ abstract class AuthTestCase extends TestCase
             ['email' => 'someone@example.com', 'password' => '111111']
         )->response->getOriginalContent()['token'];
     }
+
+    /**
+     * Send a request to the given end point, with authorization header.
+     *
+     * @param  string  $token
+     * @param  string  $endpoint
+     * @param  array  $data
+     * @param  string  $method
+     * @param  array  $headers
+     *
+     * @return static
+     */
+    protected function sendRequest(
+        string $token,
+        string $endpoint,
+        array $data = [],
+        string $method = 'POST',
+        array $headers = []
+    ): static {
+        $headers = array_merge(
+            $headers,
+            ['Authorization' => "bearer $token}"]
+        );
+        return $this->json($method, $endpoint, $data, $headers);
+    }
 }

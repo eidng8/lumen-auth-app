@@ -1,18 +1,19 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace App\Http\Controllers;
-
 
 use App\Traits\TokenResponse;
 use Illuminate\Http\JsonResponse;
 
 /**
- * JWT token related services
+ * JWT token related services.
  */
 class TokenController extends Controller
 {
@@ -33,5 +34,4 @@ class TokenController extends Controller
         /* @noinspection PhpParamsInspection */
         return $this->respondWithToken(auth()->refresh(true, true));
     }
-
 }

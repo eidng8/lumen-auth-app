@@ -1,8 +1,10 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace Tests\Units\Http\Controllers;
@@ -20,7 +22,6 @@ class TokenControllerTest extends TestCase
         parent::setUp();
         config(['jwt.accepted_issuers' => ['http://localhost/login']]);
     }
-
 
     public function test_refresh_ok(): void
     {

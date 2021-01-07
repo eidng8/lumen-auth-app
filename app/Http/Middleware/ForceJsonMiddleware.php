@@ -1,8 +1,10 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * author eidng8
+ *
  */
 
 namespace App\Http\Middleware;
@@ -26,6 +28,7 @@ class ForceJsonMiddleware
     public function handle(Request $request, Closure $next): mixed
     {
         $request->headers->set('Accept', 'application/json');
+
         return $next($request);
     }
 }

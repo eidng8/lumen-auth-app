@@ -24,5 +24,10 @@ jobs:
         - touch storage/app/database.sqlite
         - chmod +x artisan
         - ./artisan migrate
-      script:
-        - vendor/bin/phpunit
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+    script:
+        - vendor/bin/phpunit --coverage-clover clover.xml
+      after_script:
+        - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT

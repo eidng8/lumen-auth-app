@@ -39,6 +39,18 @@ class AuthenticateTest extends AuthTestCase
         $res->assertResponseOk();
     }
 
+    public function test_accepted_issuers_with_empty_string_is_filtered(): void
+    {
+        config(['jwt.issuer' => 'wrong-issuer']);
+        config(['jwt.accepted_issuers' => ['']]);
+        $res = $this->post(
+            '/refresh',
+            [],
+            ['Authorization' => "bearer {$this->getToken()}"]
+        );
+        $res->assertResponseOk();
+    }
+
     public function test_no_authorization_header_returns_401(): void
     {
         $this->post('/refresh')->assertResponseStatus(401);

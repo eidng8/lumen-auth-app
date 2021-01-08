@@ -73,6 +73,11 @@ class Authenticate
      */
     private function checkIssuer(JWTGuard $guard): bool
     {
+        // If `.env` sets `JWT_ACCEPTED_ISSUERS=` (nothing follows the equal
+        // sign), the `config()` call below returns differently on different
+        // OS. It returns an empty array on Windows, even in WSL Ubuntu.
+        // However it returns an array with one empty string (`['']`). We have
+        // to explicitly deal with that.
         $accepted = array_filter(config('jwt.accepted_issuers'));
         // allow all issuers if the configuration is not set
         if (count($accepted) == 0) {

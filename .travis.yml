@@ -28,7 +28,7 @@ jobs:
         - chmod +x ./cc-test-reporter
         - ./cc-test-reporter before-build
       script:
-        - vendor/bin/phpunit --coverage-clover clover.xml
+        - XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover clover.xml
         - find . -name clover.xml
       after_script:
         - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT

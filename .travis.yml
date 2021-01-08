@@ -21,6 +21,7 @@ jobs:
         - echo APP_KEY=$APP_KEY >> .env
         - php artisan jwt:secret
         - touch storage/app/database.sqlite
+        - chmod +x artisan
         - ./artisan migrate
       script:
         - vendor/bin/phpunit

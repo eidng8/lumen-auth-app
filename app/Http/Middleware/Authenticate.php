@@ -73,7 +73,7 @@ class Authenticate
      */
     private function checkIssuer(JWTGuard $guard): bool
     {
-        $accepted = config('jwt.accepted_issuers');
+        $accepted = array_filter(config('jwt.accepted_issuers'));
         // allow all issuers if the configuration is not set
         if (count($accepted) == 0) {
             return true;

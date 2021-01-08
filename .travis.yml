@@ -22,6 +22,6 @@ jobs:
         - php artisan jwt:secret
         - touch storage/app/database.sqlite
         - chmod +x artisan
-        - ./artisan migrate
+        - ./artisan migrate --force
       script:
         - vendor/bin/phpunit

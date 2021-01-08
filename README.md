@@ -1,6 +1,13 @@
 # Authentication microservice using Lumen
 
+![PHP](https://img.shields.io/badge/PHP-8.0-brightgreen?style=flat-square)
+![GitHub](https://img.shields.io/github/license/eidng8/lumen-auth-app?style=flat-square)
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/eidng8/lumen-auth-app/Tests?label=github&style=flat-square)
+![Travis.com](https://img.shields.io/travis/com/eidng8/lumen-auth-app?label=travis&style=flat-square)
 ![StyleCI](https://github.styleci.io/repos/327249822/shield?branch=master)
+![Codecov](https://img.shields.io/codecov/c/github/eidng8/lumen-auth-app?label=codecov&style=flat-square)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/eidng8/lumen-auth-app?label=codeclimate&style=flat-square)
 
 ## Purpose
 
@@ -79,7 +86,7 @@ To expand or change registration information, such as adding phone number. One
 has to first add the phone number to database migration, update validation rules
 and the `User` model creation inside `AuthController::register()`.
 
-### /login
+### `/login`
 
 Checks the provided credentials and generates a JWT token if the credentials are
 valid. Do *not* provide authorization header to this end point.
@@ -113,7 +120,7 @@ To change the login field, say using phone number instead of email. Beside
 modifications mentioned in registration customization, one has to change the
 `AuthController::login()` method to use the new identify field.
 
-### /refresh
+### `/refresh`
 
 Refresh a token. The authorization header is required. There is no request body.
 
@@ -135,7 +142,7 @@ Authorization: bearer JWT_token
 }
 ```
 
-### /logout
+### `/logout`
 
 Logout the token, rendering it invalid for further use. The authorization header
 is required. There is no request body.

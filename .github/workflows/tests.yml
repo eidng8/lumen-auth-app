@@ -17,7 +17,6 @@ jobs:
           php-version: '8.0'
           coverage: xdebug
       - uses: actions/checkout@v2
-      - uses: codecov/codecov-action@v1
 
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -56,4 +55,6 @@ jobs:
       #  uses: mxschmitt/action-tmate@v3
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover clover.xml
+
+      - uses: codecov/codecov-action@v1

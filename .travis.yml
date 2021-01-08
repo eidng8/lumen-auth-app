@@ -1,0 +1,24 @@
+os: linux
+dist: bionic
+language: php
+php: 8
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - vendor
+
+jobs:
+  include:
+    - stage: test
+      install:
+        - composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      before_script:
+        - APP_KEY=$(php -r 'echo md5(uniqid());')
+        - echo APP_KEY=$APP_KEY
+        - echo APP_KEY=$APP_KEY >> .env
+        - php artisan jwt:secret
+      script:
+        - vendor/bin/phpunit

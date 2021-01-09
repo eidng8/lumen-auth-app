@@ -54,12 +54,6 @@ class Authenticate
         $guard = null
     ): mixed
     {
-        // only allow requests with authorization header
-        // `jwt-auth` takes care of token type checking
-        if (empty($request->headers->get('authorization'))) {
-            return response('Unauthorized.', 401);
-        }
-
         /* @var JWTGuard $jwtGuard */
         $jwtGuard = $this->auth->guard($guard);
         if (!$jwtGuard->guest() && $this->checkIssuer($jwtGuard)) {

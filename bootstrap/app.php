@@ -97,7 +97,7 @@ $app->routeMiddleware(
 |
 */
 
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

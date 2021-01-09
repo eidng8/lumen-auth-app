@@ -177,9 +177,15 @@ return [
     */
 
     'persistent_claims' => [
+        // By default, the `iss` claim is set to the URL of the request that the
+        // token was generated. Meaning that various values could be assigned
+        // to this claim even by the same service. For example, both login and
+        // refresh token can generate tokens, and they'll assign different
+        // value to this claim respectively. Adding the `iss` claim here makes
+        // sure that tokens will never change after the initial creation. Such
+        // that once the token is created by the login end point, its issuer
+        // will stay the same even after token refresh.
         'iss',
-        // 'foo',
-        // 'bar',
     ],
 
     /*

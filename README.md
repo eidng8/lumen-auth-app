@@ -1,26 +1,28 @@
-# Authentication microservice using Lumen
+# JWT authorization microservice using Lumen
 
-![PHP](https://img.shields.io/badge/PHP-8.0-brightgreen?style=flat-square)
-![GitHub](https://img.shields.io/github/license/eidng8/lumen-auth-app?style=flat-square)
+[![PHP](https://img.shields.io/badge/PHP-8.0-brightgreen?style=flat-square)](https://www.php.net/releases/8.0/en.php)
+[![GitHub](https://img.shields.io/github/license/eidng8/lumen-auth-app?style=flat-square)](/LICENSE)
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/eidng8/lumen-auth-app/Tests?label=github&style=flat-square)
-![Travis.com](https://img.shields.io/travis/com/eidng8/lumen-auth-app?label=travis&style=flat-square)
-![StyleCI](https://github.styleci.io/repos/327249822/shield?branch=master)
-![Codecov](https://img.shields.io/codecov/c/github/eidng8/lumen-auth-app?label=codecov&style=flat-square)
-![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/eidng8/lumen-auth-app?label=codeclimate&style=flat-square)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/eidng8/lumen-auth-app/Tests?label=github&style=flat-square)](https://github.com/eidng8/lumen-auth-app/actions)
+[![Travis.com](https://img.shields.io/travis/com/eidng8/lumen-auth-app?label=travis&style=flat-square)](https://travis-ci.com/github/eidng8/lumen-auth-app)
+[![StyleCI](https://github.styleci.io/repos/327249822/shield?branch=master)](https://github.styleci.io/repos/327249822)
+[![Codecov](https://img.shields.io/codecov/c/github/eidng8/lumen-auth-app?label=codecov&style=flat-square)](https://codecov.io/gh/eidng8/lumen-auth-app)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/eidng8/lumen-auth-app?label=codeclimate&style=flat-square)](https://codeclimate.com/github/eidng8/lumen-auth-app)
 
 ## Purpose
 
-This is a trial project to build a authentication service using Lumen that
+This is a trial project to build an authentication service using Lumen that
 provides minimum functionalities. Although this is a trial project, I hope to
 make it suitable for later (or others) use as boilerplate or foundation for
-production projects or products.
+production projects or products. By production, it isn't mean this bare-bone JWT
+token could be used directly. As JWT is only a token format. Extra consideration
+should be taken beforehand, such as using protocols such as OAuth.
 
 ## Features
 
 This package is built using [jwt-auth](https://github.com/tymondesigns/jwt-auth)
 to provide JWT authentication service. It *only* supports HTTP authorization
-header with JWT tokens. And the token type must be `bearer`.
+header with JWT tokens, and the token type must be `bearer`.
 
 The database consists of a minimum set of columns, including user credentials.
 Other user properties are expected to be handled by separate service rather than
@@ -112,7 +114,11 @@ valid. Do *not* provide authorization header to this end point.
 
 Please note that the `token_type` will always be `"bearer"`, and `expires_in` is
 in seconds. As mentioned above, when using this token, the type of the HTTP
-authorization header must be `bearer`. e.g. `Authorization: bearer JWT_token`
+authorization header must be `bearer`. e.g. `Authorization: bearer JWT_token`.
+
+In real world cases, the `token_type` field may not be necessary, because the
+`bearer` type is most like the expected value. It is provided here only for
+emphasis.
 
 #### Customization
 

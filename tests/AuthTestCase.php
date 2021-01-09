@@ -22,7 +22,8 @@ abstract class AuthTestCase extends TestCase
     }
 
     /**
-     * Get a token from the given end point.
+     * Get a token from the given end point, and refreshes the application
+     * afterward.
      *
      * @param  string  $endpoint
      *
@@ -30,10 +31,12 @@ abstract class AuthTestCase extends TestCase
      */
     protected function getToken($endpoint = '/login'): string
     {
-        return $this->post(
+        $token = $this->post(
             $endpoint,
             ['email' => 'someone@example.com', 'password' => '111111']
         )->response->getOriginalContent()['token'];
+        $this->refreshApplication();
+        return $token;
     }
 
     /**

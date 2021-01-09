@@ -39,6 +39,8 @@ class TokenControllerTest extends AuthTestCase
 
     public function test_logout_ok(): void
     {
+        $token = $this->getToken();
+
         $this->app->router->group(
             ['middleware' => 'auth'],
             function (Router $router) {
@@ -51,7 +53,6 @@ class TokenControllerTest extends AuthTestCase
             }
         );
 
-        $token = $this->getToken();
         $this->sendRequest($token, '/test')->assertResponseOk();
         $this->sendRequest($token, '/logout')->assertResponseOk();
         $this->sendRequest($token, '/test')->assertResponseStatus(401);

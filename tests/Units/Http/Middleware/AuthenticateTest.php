@@ -59,10 +59,12 @@ class AuthenticateTest extends AuthTestCase
     public function test_wrong_issuer_returns_401(): void
     {
         config(['jwt.issuer' => 'wrong-issuer']);
+        $token = $this->getToken();
+        config(['jwt.accepted_issuers' => ['eidng8']]);
         $this->post(
             '/refresh',
             [],
-            ['Authorization' => "bearer {$this->getToken()}"]
+            ['Authorization' => "bearer $token"]
         )->assertResponseStatus(401);
     }
 

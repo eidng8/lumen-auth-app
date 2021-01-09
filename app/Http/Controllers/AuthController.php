@@ -44,9 +44,7 @@ class AuthController extends Controller
         );
 
         try {
-            $user = new User($request->only(['name', 'email']));
-            $user->password = app('hash')->make($request->input('password'));
-            $user->save();
+            $user = $this->createUser($request);
 
             // return successful response, HTTP 201 means "created".
             // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
@@ -102,5 +100,14 @@ class AuthController extends Controller
             ['message' => __('The given credentials cannot be found.')],
             401
         );
+    }
+
+    private function createUser(Request $request): User
+    {
+        $user = new User($request->only(['name', 'email']));
+        $user->password = app('hash')->make($request->input('password'));
+        $user->save();
+
+        return $user;
     }
 }

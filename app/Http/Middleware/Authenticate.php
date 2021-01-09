@@ -52,8 +52,7 @@ class Authenticate
         Request $request,
         Closure $next,
         $guard = null
-    ): mixed
-    {
+    ): mixed {
         /* @var JWTGuard $jwtGuard */
         $jwtGuard = $this->auth->guard($guard);
         if (!$jwtGuard->guest() && $this->checkIssuer($jwtGuard)) {

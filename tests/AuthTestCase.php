@@ -36,6 +36,7 @@ abstract class AuthTestCase extends TestCase
             ['email' => 'someone@example.com', 'password' => '111111']
         )->response->getOriginalContent()['token'];
         $this->refreshApplication();
+
         return $token;
     }
 

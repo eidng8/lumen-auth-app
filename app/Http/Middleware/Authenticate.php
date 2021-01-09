@@ -72,6 +72,11 @@ class Authenticate
     /**
      * Check whether the issuer of requested token were accepted.
      *
+     * We can't extend the `Issuer` claim class to perform addition validations.
+     * Claim class mappings are hard coded in `Tymon\JWTAuth\Claims\Factory`.
+     * `Tymon\JWTAuth\Providers\AbstractServiceProvider::registerClaimFactory()`
+     * points the claim factory singleton to `Tymon\JWTAuth\Claims\Factory`.
+     *
      * @param  JWTGuard  $guard
      *
      * @return bool

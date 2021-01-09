@@ -1,4 +1,5 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
@@ -8,13 +9,12 @@
 
 namespace App\Providers;
 
-
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Providers\LumenServiceProvider;
 
 /**
- * Application service provider
+ * Application service provider.
  */
 class AppServiceProvider extends LumenServiceProvider
 {
@@ -29,6 +29,7 @@ class AppServiceProvider extends LumenServiceProvider
             function ($app) {
                 $parser = new Parser($app['request'], [new AuthHeaders()]);
                 $app->refresh('request', $parser, 'setRequest');
+
                 return $parser;
             }
         );

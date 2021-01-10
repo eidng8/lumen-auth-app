@@ -143,5 +143,6 @@ class AuthControllerTest extends TestCase
         $this->post('/password/reset', ['email' => 'not.exists@example.com'])
             ->assertResponseStatus(422);
     }
+
     //endregion
 }

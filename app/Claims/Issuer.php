@@ -1,4 +1,5 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
@@ -7,7 +8,6 @@
  */
 
 namespace App\Claims;
-
 
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 

@@ -55,38 +55,10 @@ class Authenticate
     ): mixed {
         /* @var JWTGuard $jwtGuard */
         $jwtGuard = $this->auth->guard($guard);
-        if (!$jwtGuard->guest() && $this->checkIssuer($jwtGuard)) {
+        if (!$jwtGuard->guest()/* && $this->checkIssuer($jwtGuard)*/) {
             return $next($request);
         }
 
         return response('Unauthorized.', 401);
-    }
-
-    /**
-     * Check whether the issuer of requested token were accepted.
-     *
-     * We can't extend the `Issuer` claim class to perform addition validations.
-     * Claim class mappings are hard coded in `Tymon\JWTAuth\Claims\Factory`.
-     * `Tymon\JWTAuth\Providers\AbstractServiceProvider::registerClaimFactory()`
-     * points the claim factory singleton to `Tymon\JWTAuth\Claims\Factory`.
-     *
-     * @param  JWTGuard  $guard
-     *
-     * @return bool
-     */
-    private function checkIssuer(JWTGuard $guard): bool
-    {
-        // If `.env` sets `JWT_ACCEPTED_ISSUERS=` (nothing follows the equal
-        // sign), the `config()` call below returns differently on different
-        // OS. It returns an empty array on Windows, even in WSL Ubuntu.
-        // However it returns an array with one empty string (`['']`). We have
-        // to explicitly deal with that.
-        $accepted = array_filter((array) config('jwt.accepted_issuers'));
-        // allow all issuers if the configuration is not set
-        if (count($accepted) == 0) {
-            return true;
-        }
-
-        return in_array($guard->getPayload()->get('iss'), $accepted);
     }
 }

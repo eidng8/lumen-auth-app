@@ -10,6 +10,7 @@
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
+use Tymon\JWTAuth\Factory;
 
 /**
  * Generating responses with JWT tokens.
@@ -47,8 +48,10 @@ trait TokenResponse
      */
     protected function respondWithToken(string $token): JsonResponse
     {
-        /* @noinspection PhpParamsInspection PhpUndefinedMethodInspection */
-        $ttl = auth()->factory()->getTTL() * 60;  // converts minute to seconds
+        /* @var Factory $factory */
+        /* @noinspection PhpParamsInspection */
+        $factory = auth()->factory();
+        $ttl = $factory->getTTL() * 60;  // converts minute to seconds
 
         return response()->json(
             [

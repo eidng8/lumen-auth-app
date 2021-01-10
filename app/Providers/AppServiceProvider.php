@@ -9,6 +9,8 @@
 
 namespace App\Providers;
 
+use App\Claims\Issuer;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Providers\LumenServiceProvider;
@@ -31,6 +33,22 @@ class AppServiceProvider extends LumenServiceProvider
                 $app->refresh('request', $parser, 'setRequest');
 
                 return $parser;
+            }
+        );
+    }
+
+    protected function registerClaimFactory()
+    {
+        $this->app->singleton(
+            'tymon.jwt.claim.factory',
+            function ($app) {
+                $factory = new ClaimFactory($app['request']);
+                $app->refresh('request', $factory, 'setRequest');
+                $factory->setTTL($this->config('ttl'))
+                    ->setLeeway($this->config('leeway'));
+                $factory->extend('iss', Issuer::class);
+
+                return $factory;
             }
         );
     }

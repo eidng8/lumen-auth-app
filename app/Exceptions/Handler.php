@@ -19,7 +19,11 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
+/**
+ * Error Handler.
+ */
 class Handler extends ExceptionHandler
 {
     /**
@@ -27,41 +31,53 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [
-        AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
-    ];
+    protected $dontReport
+        = [
+            AuthorizationException::class,
+            HttpException::class,
+            ModelNotFoundException::class,
+            ValidationException::class,
+        ];
 
     /**
      * Report or log an exception.
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param Throwable $exception
+     * @param  Throwable  $e
      *
      * @return void
      *
      * @throws Exception
      */
-    public function report(Throwable $exception)
+    public function report(Throwable $e)
     {
-        parent::report($exception);
+        parent::report($e);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param Request   $request
-     * @param Throwable $exception
+     * @param  Request  $request
+     * @param  Throwable  $e
      *
      * @return Response|JsonResponse
      *
      * @throws Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        return parent::render($request, $exception);
+        if ($e instanceof InvalidClaimException) {
+            return parent::render(
+                $request,
+                new AuthorizationException(
+                    $e->getMessage(),
+                    $e->getCode(),
+                    $e
+                )
+            );
+        }
+
+        return parent::render($request, $e);
     }
 }

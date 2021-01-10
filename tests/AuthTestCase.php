@@ -34,10 +34,11 @@ abstract class AuthTestCase extends TestCase
         $token = $this->post(
             $endpoint,
             ['email' => 'someone@example.com', 'password' => '111111']
-        )->response->getOriginalContent()['token'];
+        )->response->getOriginalContent();
+        static::assertArrayHasKey('token', $token);
         $this->refreshApplication();
 
-        return $token;
+        return $token['token'];
     }
 
     /**

@@ -11,7 +11,7 @@
 
 ## Purpose
 
-This is a trial project to build an authentication service using Lumen that
+This is a trial project to build an authorization service using Lumen that
 provides minimum functionalities. Although this is a trial project, I hope to
 make it suitable for later (or others) use as boilerplate or foundation for
 production projects or products. By production, it isn't mean this bare-bone JWT
@@ -21,8 +21,8 @@ should be taken beforehand, such as using protocols such as OAuth.
 ## Features
 
 This package is built using [jwt-auth](https://github.com/tymondesigns/jwt-auth)
-to provide JWT authentication service. It *only* supports HTTP authorization
-header with JWT tokens, and the token type must be `bearer`.
+to provide authentication & JWT authorization service. It *only* supports HTTP
+authorization header with JWT tokens, and the token type must be `bearer`.
 
 The database consists of a minimum set of columns, including user credentials.
 Other user properties are expected to be handled by separate service rather than

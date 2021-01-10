@@ -15,7 +15,7 @@ This is a trial project to build an authentication service using Lumen that
 provides minimum functionalities. Although this is a trial project, I hope to
 make it suitable for later (or others) use as boilerplate or foundation for
 production projects or products. By production, it isn't mean this bare-bone JWT
-token could be used directly. As JWT is only a token format. Extra consideration
+token could be used directly, as JWT is only a token format. Extra consideration
 should be taken beforehand, such as using protocols such as OAuth.
 
 ## Features
@@ -48,6 +48,8 @@ separated list.
 ## List of end points
 
 ### `/register`
+
+Declared in `App\Http\Controllers\AuthController::register()`.
 
 Creates a new user. Parameters include `name`, `email`, and `password` with
 confirmation. Do *not* provide authorization header to this end point.
@@ -90,6 +92,8 @@ and the `User` model creation inside `AuthController::register()`.
 
 ### `/login`
 
+Declared in `App\Http\Controllers\AuthController::login()`.
+
 Checks the provided credentials and generates a JWT token if the credentials are
 valid. Do *not* provide authorization header to this end point.
 
@@ -128,6 +132,8 @@ modifications mentioned in registration customization, one has to change the
 
 ### `/refresh`
 
+Declared in `App\Http\Controllers\Token\Controller::refresh()`.
+
 Refresh a token. The authorization header is required. There is no request body.
 
 #### Request parameters
@@ -150,6 +156,8 @@ Authorization: bearer JWT_token
 
 ### `/logout`
 
+Declared in `App\Http\Controllers\Token\Controller::logout()`.
+
 Logout the token, rendering it invalid for further use. The authorization header
 is required. There is no request body.
 
@@ -168,3 +176,32 @@ Authorization: bearer JWT_token
   "message": "See you soon."
 }
 ```
+
+### `/password/reset`
+
+Declared in `App\Http\Controllers\AuthController::passwordReset()`.
+
+Starts the password reset flow. This is a scaffold end point, which doesn't
+contain any actual logic.
+
+#### Request parameters
+
+```json
+{
+    "email": "some.one@example.com"
+}
+```
+
+#### Success response
+
+```json
+{
+  "message": "Password reset email has been sent to your email."
+}
+```
+
+#### Customization
+
+Password reset could take various forms in real world applications. Here we just
+demonstrate the first step of reset process using email. One could simply
+utilize Laravel reset password flow, or design custom process flow.

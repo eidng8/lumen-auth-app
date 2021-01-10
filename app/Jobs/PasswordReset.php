@@ -12,7 +12,7 @@ namespace App\Jobs;
 /**
  * Password reset queue job scaffolding. Password reset could take various forms
  * in real world applications. Here we just demonstrate the first step of reset
- * process using email. One could simply utilize Laravel's reset password flow,
+ * process using email. One could simply utilize Laravel reset password flow,
  * or design custom process flow.
  *
  * Check out official documents {@see https://laravel.com/docs/8.x/passwords} on

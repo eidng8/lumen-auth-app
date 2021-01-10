@@ -13,8 +13,6 @@ use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 /**
  * Issuer claim class that has extra constrain on values.
- *
- * @package App\Claims
  */
 class Issuer extends \Tymon\JWTAuth\Claims\Issuer
 {

@@ -24,5 +24,6 @@ use Laravel\Lumen\Routing\Router;
 
 $router->post('register', 'AuthController@register');
 $router->post('login', 'AuthController@login');
+$router->post('password/reset', 'AuthController@passwordReset');
 $router->post('refresh', 'TokenController@refresh');
 $router->post('logout', 'TokenController@logout');

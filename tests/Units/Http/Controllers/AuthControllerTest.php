@@ -9,6 +9,7 @@
 
 namespace Tests\Units\Http\Controllers;
 
+use App\Jobs\PasswordReset;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Arr;
@@ -105,13 +106,42 @@ class AuthControllerTest extends TestCase
         );
     }
 
-    public function test_login_ok_wrong_credential_returns_error(): void
+    public function test_login_wrong_credential_returns_401(): void
+    {
+        $this->post(
+            '/login',
+            ['email' => 'not.exists@example.com', 'password' => 'some pass']
+        )->assertResponseStatus(401);
+    }
+
+    public function test_login_invalid_email_returns_422(): void
     {
         $this->post(
             '/login',
             ['email' => 'not exists', 'password' => 'some pass']
-        )->assertResponseStatus(401);
+        )->assertResponseStatus(422);
     }
 
+    //endregion
+
+    //region Password Reset
+    public function test_password_reset_job_adds_to_queue(): void
+    {
+        $this->expectsJobs(PasswordReset::class);
+        $this->post('password/reset', ['email' => 'someone@example.com'])
+            ->assertResponseOk();
+    }
+
+    public function test_password_reset_invalid_email_returns_422(): void
+    {
+        $this->post('/password/reset', ['email' => 'invalid format'])
+            ->assertResponseStatus(422);
+    }
+
+    public function test_password_reset_noe_exist_email_returns_422(): void
+    {
+        $this->post('/password/reset', ['email' => 'not.exists@example.com'])
+            ->assertResponseStatus(422);
+    }
     //endregion
 }

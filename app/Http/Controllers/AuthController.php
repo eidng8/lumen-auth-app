@@ -9,9 +9,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\PasswordReset;
 use App\Models\User;
 use App\Traits\TokenResponse;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -82,7 +84,7 @@ class AuthController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string',
+                'email' => 'required|email',
                 'password' => 'required|string',
             ]
         );
@@ -102,6 +104,42 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     * Start the password reset process, this is the first step of the process.
+     * Here a simple job is pushed to the queue without any further process.
+     *
+     * https://laravel.com/docs/8.x/passwords
+     *
+     * @param  Request  $request
+     *
+     * @return JsonResponse
+     * @throws AuthenticationException
+     * @throws ValidationException
+     */
+    public function passwordReset(Request $request): JsonResponse
+    {
+        // Simply verify that the given email exists in the database.
+        // This is a bare-bone demonstration. Extra measures must be taken in
+        // real world application to mitigate security threats.
+        $this->validate($request, ['email' => 'required|email|exists:users']);
+        dispatch(new PasswordReset($request->input('email')));
+
+        return response()->json(
+            [
+                'message' => __(
+                    'Password reset email has been sent to your email.'
+                ),
+            ]
+        );
+    }
+
+    /**
+     * Add the requested user credentials to database.
+     *
+     * @param  Request  $request
+     *
+     * @return User
+     */
     private function createUser(Request $request): User
     {
         $user = new User($request->only(['name', 'email']));

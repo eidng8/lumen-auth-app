@@ -2,5 +2,6 @@
     "User has been successfully created.": "創建用戶成功。",
     "User Registration Failed.": "無法創建用戶。",
     "The given credentials cannot be found.": "登入信息不正確。",
-    "See you soon.": "歡迎再次光臨。"
+    "See you soon.": "歡迎再次光臨。",
+    "Password reset email has been sent to your email.": "密碼重置電郵已發送至閣下的郵箱。"
 }

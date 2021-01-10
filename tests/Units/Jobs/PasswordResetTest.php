@@ -1,4 +1,5 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
@@ -15,12 +16,9 @@ use Tests\TestCase;
 
 /**
  * Tests PasswordReset jobs.
- *
- * @package Tests\Units\Jobs
  */
 class PasswordResetTest extends TestCase
 {
-
     public function testHandle()
     {
         // We haven't enabled facades, so manual mocking is required.

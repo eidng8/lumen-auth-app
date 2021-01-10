@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\TokenResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 
 /**
  * JWT token related services.
@@ -47,5 +48,30 @@ class TokenController extends Controller
         auth()->logout();
 
         return response()->json(['message' => __('See you soon.')]);
+    }
+
+    /**
+     * Validates the token and returns its TTL if it's valid.
+     *
+     * This is just a scaffold, feel free to implement whatever suitable.
+     *
+     * @return JsonResponse
+     */
+    public function verify(): JsonResponse
+    {
+        /* @noinspection PhpParamsInspection PhpUndefinedMethodInspection */
+        return response()->json(['ttl' => auth()->factory()->getTTL() * 60]);
+    }
+
+    /**
+     * Returns the current server time in W3C format.
+     *
+     * This is just a scaffold, feel free to implement whatever suitable.
+     *
+     * @return JsonResponse
+     */
+    public function heartbeat(): JsonResponse
+    {
+        return response()->json(['time' => Carbon::now()->toW3cString()]);
     }
 }

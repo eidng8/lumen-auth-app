@@ -73,14 +73,14 @@ data too. Upon success, it returns some information about the created record.
 
 ```json
 {
-  "user": {
-    "name": "test-user1",
-    "email": "someone1@example.com",
-    "updated_at": "2021-01-07T10:32:49.000000Z",
-    "created_at": "2021-01-07T10:32:49.000000Z",
-    "id": 230
-  },
-  "message": "User has been successfully created."
+    "user": {
+        "name": "test-user1",
+        "email": "someone1@example.com",
+        "updated_at": "2021-01-07T10:32:49.000000Z",
+        "created_at": "2021-01-07T10:32:49.000000Z",
+        "id": 230
+    },
+    "message": "User has been successfully created."
 }
 ```
 
@@ -110,9 +110,9 @@ valid. Do *not* provide authorization header to this end point.
 
 ```json
 {
-  "token": "the newly generated JWT token",
-  "token_type": "bearer",
-  "expires_in": 3600
+    "token": "the newly generated JWT token",
+    "token_type": "bearer",
+    "expires_in": 3600
 }
 ```
 
@@ -129,6 +129,35 @@ emphasis.
 To change the login field, say using phone number instead of email. Beside
 modifications mentioned in registration customization, one has to change the
 `AuthController::login()` method to use the new identify field.
+
+### `/password/reset`
+
+Declared in `App\Http\Controllers\AuthController::passwordReset()`.
+
+Starts the password reset flow. This is a scaffold end point, which doesn't
+contain any actual logic.
+
+#### Request parameters
+
+```json
+{
+    "email": "some.one@example.com"
+}
+```
+
+#### Success response
+
+```json
+{
+    "message": "Password reset email has been sent to your email."
+}
+```
+
+#### Customization
+
+Password reset could take various forms in real world applications. Here we just
+demonstrate the first step of reset process using email. One could simply
+utilize Laravel reset password flow, or design custom process flow.
 
 ### `/refresh`
 
@@ -148,9 +177,9 @@ Authorization: bearer JWT_token
 
 ```json
 {
-  "token": "the newly generated JWT token",
-  "token_type": "bearer",
-  "expires_in": 3600
+    "token": "the newly generated JWT token",
+    "token_type": "bearer",
+    "expires_in": 3600
 }
 ```
 
@@ -173,35 +202,52 @@ Authorization: bearer JWT_token
 
 ```json
 {
-  "message": "See you soon."
+    "message": "See you soon."
 }
 ```
 
-### `/password/reset`
+### `/verify`
 
-Declared in `App\Http\Controllers\AuthController::passwordReset()`.
+Declared in `App\Http\Controllers\Token\Controller::verify()`.
 
-Starts the password reset flow. This is a scaffold end point, which doesn't
-contain any actual logic.
+Validates the token and returns its TTL if it's valid. This is just a scaffold,
+feel free to implement whatever suitable.
 
 #### Request parameters
 
-```json
-{
-    "email": "some.one@example.com"
-}
+##### HTTP header
+
+```text
+Authorization: bearer JWT_token
 ```
 
 #### Success response
 
 ```json
 {
-  "message": "Password reset email has been sent to your email."
+    "ttl": 3600
 }
 ```
 
-#### Customization
+### `/heartbeat`
 
-Password reset could take various forms in real world applications. Here we just
-demonstrate the first step of reset process using email. One could simply
-utilize Laravel reset password flow, or design custom process flow.
+Declared in `App\Http\Controllers\Token\Controller::heartbeat()`.
+
+Returns the current server time in W3C format. This is just a scaffold, feel
+free to implement whatever suitable.
+
+#### Request parameters
+
+##### HTTP header
+
+```text
+Authorization: bearer JWT_token
+```
+
+#### Success response
+
+```json
+{
+    "time": "2021-01-10T03:45:27+00:00"
+}
+```

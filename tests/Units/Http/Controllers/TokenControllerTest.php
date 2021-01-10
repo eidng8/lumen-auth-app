@@ -57,4 +57,17 @@ class TokenControllerTest extends AuthTestCase
         $this->sendRequest($token, '/logout')->assertResponseOk();
         $this->sendRequest($token, '/test')->assertResponseStatus(401);
     }
+
+    public function test_verify_ok(): void
+    {
+        $this->sendRequest($this->getToken(), '/verify')
+            ->seeJson(['ttl' => 3600])
+            ->assertResponseOk();
+    }
+
+    public function test_heartbeat_ok(): void
+    {
+        $this->sendRequest($this->getToken(), '/heartbeat')
+            ->assertResponseOk();
+    }
 }

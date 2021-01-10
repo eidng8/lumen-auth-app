@@ -27,3 +27,5 @@ $router->post('login', 'AuthController@login');
 $router->post('password/reset', 'AuthController@passwordReset');
 $router->post('refresh', 'TokenController@refresh');
 $router->post('logout', 'TokenController@logout');
+$router->post('verify', 'TokenController@verify');
+$router->post('heartbeat', 'TokenController@heartbeat');

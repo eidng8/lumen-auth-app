@@ -11,6 +11,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,6 +21,11 @@ use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 /**
  * Error Handler.
@@ -67,7 +73,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if ($e instanceof InvalidClaimException) {
+        if ($e instanceof UserNotDefinedException) {
+            return parent::render(
+                $request,
+                new AuthenticationException(
+                    $e->getMessage(),
+                    $e->getCode(),
+                    $e
+                )
+            );
+        } elseif ($e instanceof InvalidClaimException
+                  || $e instanceof TokenBlacklistedException
+                  || $e instanceof TokenExpiredException
+                  || $e instanceof TokenInvalidException
+                  || $e instanceof PayloadException
+        ) {
             return parent::render(
                 $request,
                 new AuthorizationException(

@@ -60,7 +60,7 @@ class TokenController extends Controller
     public function verify(): JsonResponse
     {
         /* @noinspection PhpParamsInspection PhpUndefinedMethodInspection */
-        return response()->json(['ttl' => auth()->factory()->getTTL() * 60]);
+        return $this->respond(['ttl' => auth()->factory()->getTTL() * 60]);
     }
 
     /**
@@ -72,6 +72,6 @@ class TokenController extends Controller
      */
     public function heartbeat(): JsonResponse
     {
-        return response()->json(['time' => Carbon::now()->toW3cString()]);
+        return $this->respond(['time' => Carbon::now()->toW3cString()]);
     }
 }

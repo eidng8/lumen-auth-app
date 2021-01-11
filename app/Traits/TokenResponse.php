@@ -17,6 +17,15 @@ use Tymon\JWTAuth\Factory;
  */
 trait TokenResponse
 {
+    protected function respond(array $json): JsonResponse
+    {
+        if (config('app.debug')) {
+            $json['user_id'] = auth()->user()['id'];
+        }
+
+        return response()->json($json);
+    }
+
     /**
      * Generate a JSON response with the given JWT token.
      * There are two extra fields placed side by side with the token.
@@ -42,7 +51,7 @@ trait TokenResponse
      *     - https://some.domain.com/refresh
      * + The `sub` claim holds user ID (most likely the database primary key).
      *
-     * @param string $token
+     * @param  string  $token
      *
      * @return JsonResponse
      */
@@ -53,7 +62,7 @@ trait TokenResponse
         $factory = auth()->factory();
         $ttl = $factory->getTTL() * 60;  // converts minute to seconds
 
-        return response()->json(
+        return $this->respond(
             [
                 'token' => $token,
                 'token_type' => 'bearer',

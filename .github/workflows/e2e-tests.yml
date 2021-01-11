@@ -1,4 +1,4 @@
-name: Tests
+name: E2E Test
 
 on:
   push:
@@ -15,7 +15,8 @@ jobs:
       - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
           php-version: '8.0'
-          coverage: xdebug
+          coverage: none
+
       - uses: actions/checkout@v2
 
       - name: Setup problem matchers for PHPUnit
@@ -54,7 +55,8 @@ jobs:
       #- name: Setup tmate session
       #  uses: mxschmitt/action-tmate@v3
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover clover.xml
+      - name: Start PHP server
+        run: php -S 127.0.0.1:8000 -t public >/dev/null 2>&1 &
 
-      - uses: codecov/codecov-action@v1
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: DB_DATABASE="`pwd`/storage/app/database.sqlite" vendor/bin/phpunit --group e2e tests/E2E/EndPointsTest.php

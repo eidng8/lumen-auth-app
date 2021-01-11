@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="E2E" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner class="Tests\E2E\EndPointsTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/E2E/EndPointsTest.php" scope="Class" options="--group e2e" />
+    <method v="2" />
+  </configuration>
+</component>

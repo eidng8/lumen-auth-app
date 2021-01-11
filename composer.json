@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.0",
         "laravel/lumen-framework": "^8.0",
+        "swooletw/laravel-swoole": "dev-improvement/php8",
         "tymon/jwt-auth": "^1.0.2"
     },
     "require-dev": {

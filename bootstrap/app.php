@@ -98,6 +98,7 @@ $app->routeMiddleware(
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(SwooleTW\Http\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

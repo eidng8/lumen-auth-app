@@ -23,12 +23,12 @@ class TokenControllerTest extends AuthTestCase
         $res = $this->sendRequest($token, '/refresh');
         $res->assertResponseOk();
         $res->seeJsonContains(['token_type' => 'bearer', 'expires_in' => 3600]);
-        $this->assertStringContainsString(
+        static::assertStringContainsString(
             '"token":',
             $res->response->getContent()
         );
         $newToken = $res->response->getOriginalContent()['token'];
-        $this->assertNotEquals($token, $newToken);
+        static::assertNotEquals($token, $newToken);
         // JWTGuard is a singleton, so it won't pick up authorization headers
         // from subsequent requests. We have to refresh the application to clear
         // all provider resolutions.

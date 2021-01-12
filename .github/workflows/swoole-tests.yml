@@ -7,7 +7,7 @@ on:
     branches: [ swoole ]
 
 jobs:
-  phpunit:
+  e2e:
 
     runs-on: ubuntu-latest
 

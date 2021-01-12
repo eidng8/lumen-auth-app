@@ -16,10 +16,9 @@ use Dotenv\Dotenv;
  */
 class EndPointsSwooleTest extends EndPointsTest
 {
-    protected static function loadEnv(): void
+    protected static function loadEnv(string $base): void
     {
-        parent::loadEnv();
-        $base = dirname(dirname(__DIR__));
+        parent::loadEnv($base);
         if (file_exists("$base/.swoole.env")) {
             Dotenv::createImmutable($base, '.swoole.env')->load();
         }

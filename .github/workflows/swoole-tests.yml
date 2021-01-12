@@ -56,7 +56,7 @@ jobs:
       - name: Start PHP server
         run: |
           chmod +x start.sh
-          ./start.sh swoole >/dev/null 2>&1 &
+          ./start.sh swoole >/dev/null &
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: DB_DATABASE="`pwd`/storage/app/database.sqlite" vendor/bin/phpunit --group e2e tests/E2E/EndPointsSwooleTest.php
+        run: DB_DATABASE="`pwd`/storage/app/database.sqlite" TEST_REMOTE_BASE=http://localhost:1215 vendor/bin/phpunit --group e2e tests/E2E/EndPointsSwooleTest.php

@@ -76,7 +76,7 @@ class EndPointsTest extends TestCase
 
         static::loadEnv();
 
-        static::$base = getenv('DB_DATABASE')
+        static::$base = getenv('TEST_REMOTE_BASE')
                         ?? $_ENV['TEST_REMOTE_BASE']
                            ?? 'http://localhost:8000';
         static::$http = new Client(['base_uri' => static::$base]);

@@ -56,7 +56,7 @@ jobs:
       - name: Start PHP server
         run: |
           chmod +x start.sh
-          ./start.sh >/dev/null 2>&1 &
+          ./start.sh >/dev/null &
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: DB_DATABASE="`pwd`/storage/app/database.sqlite" vendor/bin/phpunit --group e2e tests/E2E/EndPointsTest.php

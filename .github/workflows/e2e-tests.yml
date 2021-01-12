@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  phpunit:
+  e2e:
 
     runs-on: ubuntu-latest
 
@@ -56,7 +56,7 @@ jobs:
       #  uses: mxschmitt/action-tmate@v3
 
       - name: Start PHP server
-        run: php -S 127.0.0.1:8000 -t public >/dev/null 2>&1 &
+        run: DB_DATABASE="`pwd`/storage/app/database.sqlite" php -S 127.0.0.1:8000 -t public >/dev/null 2>&1 &
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: DB_DATABASE="`pwd`/storage/app/database.sqlite" vendor/bin/phpunit --group e2e tests/E2E/EndPointsTest.php

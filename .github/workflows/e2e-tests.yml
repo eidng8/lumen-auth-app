@@ -15,6 +15,8 @@ jobs:
       - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
           php-version: '8.0'
+          coverage: none
+
       - uses: actions/checkout@v2
 
       - name: Setup problem matchers for PHPUnit
@@ -54,9 +56,7 @@ jobs:
       #  uses: mxschmitt/action-tmate@v3
 
       - name: Start PHP server
-        run: |
-          chmod +x start.sh
-          ./start.sh >/dev/null &
+        run: php -S 127.0.0.1:8000 -t public >/dev/null 2>&1 &
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: DB_DATABASE="`pwd`/storage/app/database.sqlite" vendor/bin/phpunit --group e2e tests/E2E/EndPointsTest.php

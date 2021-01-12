@@ -1,4 +1,5 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
@@ -21,7 +22,6 @@ use Illuminate\Support\Arr;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-
 
 /**
  * Test all endpoints via HTTP. The `TEST_REMOTE_BASE` environment variable can
@@ -104,7 +104,9 @@ class EndPointsTest extends TestCase
     public function test_register_ok(): array
     {
         $requests = [];
-        for ($i = 0; $i < 10; $i++) $requests += $this->register();
+        for ($i = 0; $i < 10; $i++) {
+            $requests += $this->register();
+        }
         /* @noinspection PhpUnhandledExceptionInspection */
         /* @var TUser[] $responses */
         $responses = Utils::unwrap($requests);

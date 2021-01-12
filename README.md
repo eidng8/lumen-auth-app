@@ -29,6 +29,10 @@ Other user properties are expected to be handled by separate service rather than
 this one. To expand the data scope, one has to amend database migration
 and `AuthController`.
 
+### Swoole
+
+The `swoole` branch contains swoole specific changes.
+
 ## Configurations
 
 Two configuration has been added to `config/jwt.php`.

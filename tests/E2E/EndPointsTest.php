@@ -76,11 +76,18 @@ class EndPointsTest extends TestCase
 
         static::loadEnv();
 
-        static::$base = $_ENV['TEST_REMOTE_BASE'] ?? 'http://localhost:8000';
+        static::$base = getenv('DB_DATABASE')
+                        ?? $_ENV['TEST_REMOTE_BASE']
+                           ?? 'http://localhost:8000';
         static::$http = new Client(['base_uri' => static::$base]);
         static::$faker = Factory::create();
 
-        $db = $_ENV['DB_DATABASE'];
+        $db = getenv('DB_DATABASE') ?? $_ENV['DB_DATABASE'];
+        if (empty($db)) {
+            throw new \Exception(
+                '`DB_DATABASE` environment variable must points to database file.'
+            );
+        }
         $pdo = new \PDO("sqlite:$db");
         $pdo->exec('delete from users where id>1');
     }

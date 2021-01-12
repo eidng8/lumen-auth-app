@@ -59,4 +59,4 @@ jobs:
           ./start.sh swoole >/dev/null 2>&1 &
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit --group e2e --filter Tests\\E2E\\EndPointsSwooleTest --test-suffix EndPointsSwooleTest.php
+        run: DB_DATABASE="`pwd`/storage/app/database.sqlite" vendor/bin/phpunit --group e2e tests/E2E/EndPointsSwooleTest.php

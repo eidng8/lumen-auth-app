@@ -1,4 +1,5 @@
 <?php
+
 /*
  * GPLv3  https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
@@ -9,7 +10,6 @@
 namespace Tests\E2E;
 
 use Dotenv\Dotenv;
-
 
 /**
  * @group e2e

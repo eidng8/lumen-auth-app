@@ -76,15 +76,14 @@ class EndPointsTest extends TestCase
     {
         parent::setUpBeforeClass();
 
-        static::loadEnv();
+        static::loadEnv(dirname(dirname(__DIR__)));
 
         static::$base = getenv('TEST_REMOTE_BASE')
-                        ?? $_ENV['TEST_REMOTE_BASE']
-                           ?? 'http://localhost:8000';
+            ?: $_ENV['TEST_REMOTE_BASE'] ?? 'http://localhost:8000';
         static::$http = new Client(['base_uri' => static::$base]);
         static::$faker = Factory::create();
 
-        $db = getenv('DB_DATABASE') ?? $_ENV['DB_DATABASE'];
+        $db = getenv('DB_DATABASE') ?: $_ENV['DB_DATABASE'];
         if (empty($db)) {
             throw new Exception(
                 '`DB_DATABASE` environment variable must points to database file.'
@@ -94,9 +93,8 @@ class EndPointsTest extends TestCase
         $pdo->exec('delete from users where id>1');
     }
 
-    protected static function loadEnv(): void
+    protected static function loadEnv(string $base): void
     {
-        $base = dirname(dirname(__DIR__));
         Dotenv::createImmutable($base)->load();
     }
 

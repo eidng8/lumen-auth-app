@@ -10,6 +10,7 @@
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Factory;
 
 /**
@@ -20,7 +21,18 @@ trait TokenResponse
     protected function respond(array $json): JsonResponse
     {
         if (config('app.debug')) {
-            $json['user_id'] = auth()->user()['id'];
+            // Add more detail about the token, so tests can do more assertions.
+            $request = request();
+            $jwt = app(JWT::class);
+            $json['user_id'] = $request->user()['id'];
+            if (isset($json['token'])) {
+                $json['token_payload'] = $jwt->decode($json['token']);
+            }
+            $auth = $request->headers->get('authorization');
+            if ($auth) {
+                $json['auth'] = explode(' ', $auth)[1];
+                $json['auth_payload'] = $jwt->decode($json['auth']);
+            }
         }
 
         return response()->json($json);

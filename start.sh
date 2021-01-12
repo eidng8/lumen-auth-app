@@ -13,8 +13,8 @@ if [ "-h" == "$1" ] || [ "--help" == "$1" ]; then
     exit
 fi
 
-echo Box IP address:
-ip address | grep -F --color=never 'scope global'
+SWOOLE_BOX='TEST_REMOTE_BASE=http://'$(ip address | grep -F --color=never 'scope global' | xargs | cut -d' ' -f2 | cut -d'/' -f1)':1215'
+echo "$SWOOLE_BOX" >.swoole.env
 
 # shellcheck disable=SC2164
 WD="$(

@@ -55,10 +55,10 @@ class Authenticate
     ): mixed {
         /* @var JWTGuard $jwtGuard */
         $jwtGuard = $this->auth->guard($guard);
-        if (!$jwtGuard->guest()) {
-            return $next($request);
+        if ($jwtGuard->guest()) {
+            return response('Unauthorized.', 401);
         }
 
-        return response('Unauthorized.', 401);
+        return $next($request);
     }
 }

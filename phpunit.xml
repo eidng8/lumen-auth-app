@@ -19,6 +19,11 @@
             </directory>
         </testsuite>
     </testsuites>
+    <groups>
+        <exclude>
+            <group>e2e</group>
+        </exclude>
+    </groups>
     <coverage cacheDirectory="./.phpunit.cache"
               includeUncoveredFiles="true"
               processUncoveredFiles="true"

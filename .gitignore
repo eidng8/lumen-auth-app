@@ -2,6 +2,7 @@
 Homestead.json
 Homestead.yaml
 .env
+.swoole.env
 .phpunit.result.cache
 .phpunit.cache
 http-client.env.json

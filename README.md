@@ -3,7 +3,7 @@
 [![PHP](https://img.shields.io/badge/PHP-8.0-brightgreen?style=flat-square)](https://www.php.net/releases/8.0/en.php)
 [![GitHub](https://img.shields.io/github/license/eidng8/lumen-auth-app?style=flat-square)](/LICENSE)
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/eidng8/lumen-auth-app/Tests?label=github&style=flat-square)](https://github.com/eidng8/lumen-auth-app/actions)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/eidng8/lumen-auth-app/E2E%20Test/swoole?label=github&style=flat-square)](https://github.com/eidng8/lumen-auth-app/actions?query=workflow%3A%22E2E+Test%22)
 [![Travis.com](https://img.shields.io/travis/com/eidng8/lumen-auth-app?label=travis&style=flat-square)](https://travis-ci.com/github/eidng8/lumen-auth-app)
 [![StyleCI](https://github.styleci.io/repos/327249822/shield?branch=master)](https://github.styleci.io/repos/327249822)
 [![Codecov](https://img.shields.io/codecov/c/github/eidng8/lumen-auth-app?label=codecov&style=flat-square)](https://codecov.io/gh/eidng8/lumen-auth-app)

@@ -24,6 +24,8 @@ USE_PORT=8000
 
 DB_DATABASE="$WD/storage/app/database.sqlite"
 
+ip address | grep -F --color=never 'scope global'
+
 if [ "swoole" == "$1" ]; then
     SWOOLE_BOX='TEST_REMOTE_BASE=http://'$(ip address | grep -F --color=never 'scope global' | xargs | cut -d' ' -f2 | cut -d'/' -f1)':1215'
     echo "$SWOOLE_BOX" >.swoole.env
